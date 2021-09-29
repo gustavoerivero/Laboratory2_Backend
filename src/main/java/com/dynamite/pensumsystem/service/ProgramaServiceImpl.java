@@ -33,8 +33,13 @@ public class ProgramaServiceImpl implements ProgramaService {
     }
 
     @Override
+    public Programa getProgramaByCode(String codigo){
+        return programaRepository.findProgramaByCodigo(codigo);
+    }
+
+    @Override
     public String updatePrograma(Programa programa){
-        Optional<Programa> encontrarPrograma = programaRepository.findById(programa.getProgramaId());
+        Optional<Programa> encontrarPrograma = programaRepository.findById(programa.getId());
         if (encontrarPrograma.isPresent()) {
             Programa programaActualizado = encontrarPrograma.get();
             programaActualizado.setCodigo(programa.getCodigo());
@@ -54,9 +59,5 @@ public class ProgramaServiceImpl implements ProgramaService {
         }
         return "Error: Programa no encontrado.";
     }
-
-    @Override
-    public Programa getProgramaByCode(String codigo){
-        return programaRepository.findProgramaByCodigo(codigo);
-    }
+    
 }

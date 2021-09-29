@@ -10,29 +10,36 @@ public class Programa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int programaId;
+    private int id;
 
     @JsonProperty
-    @Column(name = "codigo", unique = true, nullable = false)
+    @Column(name = "codigo", length = 10, unique = true, nullable = false)
     private String codigo;
 
     @JsonProperty
-    @Column(name = "nombre", nullable = false)
+    @Column(name = "nombre", length = 255, nullable = false)
     private String nombre;
 
     @JsonProperty
-    @Column(name = "status", nullable = false)
+    @Column(name = "status", length = 1, nullable = false)
     private char status = 'A';
 
     public Programa() {
     }
-
-    public int getProgramaId() {
-        return programaId;
+    
+    public Programa (int id, String codigo, String nombre, char status) {
+    	this.id = id;
+    	this.codigo = codigo;
+    	this.nombre = nombre;
+    	this.status = status;
     }
 
-    public void setProgramaId(int programaId) {
-        this.programaId = programaId;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCodigo() {

@@ -2,13 +2,10 @@ package com.dynamite.pensumsystem.service;
 
 import com.dynamite.pensumsystem.model.Pensum;
 import com.dynamite.pensumsystem.repository.PensumRepository;
+import com.dynamite.pensumsystem.repository.ProgramaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +14,9 @@ public class PensumServiceImpl implements PensumService{
 
     @Autowired
     private PensumRepository pensumRepository;
+    
+    @Autowired
+    private ProgramaRepository programaRepository;
 
     public Pensum savePensum(Pensum pensum) {
         if(pensum != null)
@@ -39,19 +39,23 @@ public class PensumServiceImpl implements PensumService{
     public Pensum getPensumByCodigo(String codigo) {
         return pensumRepository.findPensumByCodigo(codigo);
     }
+    
+    @Override
+    public List<Pensum> getAllPensumByPrograma(String codigoPrograma) {
+    	return pensumRepository.findPensumByPrograma(programaRepository.findProgramaByCodigo(codigoPrograma));
+    }
 
     @Override
     public String updatePensum(Pensum pensum) {
 
-        Optional<Pensum> pensumEncontrado = pensumRepository.findById(pensum.getPensumId());
+        Optional<Pensum> pensumEncontrado = pensumRepository.findById(pensum.getId());
         if(pensumEncontrado.isPresent())
         {
             Pensum pensumActualizado = pensumEncontrado.get();
             pensumActualizado.setCodigo(pensum.getCodigo());
-            pensumActualizado.setNombre(pensum.getNombre());
             pensumActualizado.setDescripcion(pensum.getDescripcion());
             pensumActualizado.setFecha(pensum.getFecha());
-            pensumActualizado.setCodPrograma(pensum.getCodPrograma());
+            pensumActualizado.setPrograma(pensum.getPrograma());
             pensumRepository.save(pensumActualizado);
             return "¡Datos del Pensum actualizados con exito!\n(Codigo del Pensum: " + pensum.getCodigo()+").";
         }
@@ -63,7 +67,7 @@ public class PensumServiceImpl implements PensumService{
         Optional<Pensum> pensumEncontrado = pensumRepository.findById(id);
         if (pensumEncontrado.isPresent()) {
             pensumRepository.deleteById(id);
-            return "Pensum de " + pensumEncontrado.get().getNombre() +" ha sido eliminado.";
+            return "Pensum " + pensumEncontrado.get().getCodigo() + " ha sido eliminado.";
         }
         return "Error: Pensum no encontrado.";
     }

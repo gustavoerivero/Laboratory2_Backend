@@ -9,9 +9,8 @@ public interface UsuarioService {
     public List<Usuario> getAllUsuarios();
     public Usuario getUsuarioById(int id);
     public Usuario getUsuarioByUsername(String username);
-    public Usuario getUsuarioByEmail(String email);
+    public Usuario getUsuarioByUsernameAndPassword(String username, String password);
+    public Usuario getUsuarioByCorreo(String correo);
     public String updateUsuario(Usuario usuario);
     public String deleteUsuario(int id);
-    public List<Usuario> getUsuariosByRol(String Rol);
-
 }

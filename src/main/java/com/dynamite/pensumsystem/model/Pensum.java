@@ -12,49 +12,54 @@ public class Pensum {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    private int pensumId;
+    private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "cod_programa", nullable = false)
+    private Programa programa;
 
     @JsonProperty
-    @Column(name = "codigo", unique = true, nullable = false)
+    @Column(name = "codigo", unique = true, nullable = false, length = 10)
     private String codigo;
 
     @JsonProperty
-    @Column(name = "nombre", nullable = false)
-    private String nombre;
-
-    @JsonProperty
-    @Column(name = "descripcion", nullable = false)
+    @Column(name = "descripcion", nullable = false, length = 255)
     private String descripcion;
 
     @JsonProperty
     @Column(name = "fecha", nullable = false)
-    private LocalDate fecha;
-
-    @ManyToOne
-    @JoinColumn(name = "codPrograma")
-    private Programa codPrograma;
+    private LocalDate fecha = LocalDate.now();
 
     @JsonProperty
-    @Column(name = "status", nullable = false)
+    @Column(name = "status", nullable = false, length = 1)
     private char status = 'A';
 
     public Pensum() {
     }
-
-    public int getPensumId() {
-        return pensumId;
+    
+    public Pensum(int id, String codigo, String descripcion, LocalDate fecha, Programa programa, char status) {
+    	this.id = id;
+    	this.programa = programa;
+    	this.codigo = codigo;
+    	this.descripcion = descripcion;
+    	this.fecha = fecha;
+    	this.status = status;
     }
 
-    public void setPensumId(int pensumId) {
-        this.pensumId = pensumId;
+    public int getId() {
+        return id;
     }
 
-    public Programa getCodPrograma() {
-        return codPrograma;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setCodPrograma(Programa codPrograma) {
-        this.codPrograma = codPrograma;
+    public Programa getPrograma() {
+        return programa;
+    }
+
+    public void setPrograma(Programa programa) {
+        this.programa = programa;
     }
 
     public String getCodigo() {
@@ -63,14 +68,6 @@ public class Pensum {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public String getDescripcion() {

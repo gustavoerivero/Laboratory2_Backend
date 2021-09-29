@@ -10,101 +10,126 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty
-    @Column(name = "id")
-    private int usuarioId;
+    @Column(name = "id", unique = true, nullable = false)
+    private int id;
+    
+    @ManyToOne
+    @JoinColumn(name = "cod_programa", nullable = true)
+    private Programa programa;
 
     @JsonProperty
-    @Column(name = "username", unique = true, nullable = false)
+    @Column(name = "username", length = 50, unique = true, nullable = false)
     private String username;
 
     @JsonProperty
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", length = 50, nullable = false)
     private String password;
 
     @JsonProperty
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "nombre", length = 100, nullable = false)
+    private String nombre;
 
     @JsonProperty
-    @Column(name = "lastname", nullable = false)
-    private String lastname;
+    @Column(name = "apellido", length = 100, nullable = false)
+    private String apellido;
 
     @JsonProperty
-    @Column(name = "email", unique = true, nullable = false)
-    private String email;
+    @Column(name = "correo", length = 255, unique = true, nullable = false)
+    private String correo;
 
     @JsonProperty
-    @Column(name = "rol", nullable = false)
-    private String rol;
+    @Column(name = "rol", length = 1, nullable = false)
+    private char rol;
 
     @JsonProperty
-    @Column(name = "status", nullable = false)
+    @Column(name = "status", length = 1, nullable = false)
     private char status = 'A';
 
     public Usuario() {
     }
-
-    public int getUsuarioId() {
-        return usuarioId;
+    
+    public Usuario (int id, Programa programa, String username, String pass, String nombre, String apellido, String correo, char rol, char status) {
+    	this.id = id;
+    	this.programa = programa;
+    	this.username = username;
+    	this.password = pass;
+    	this.nombre = nombre;
+    	this.apellido = apellido;
+    	this.correo = correo;
+    	this.rol = rol;
+    	this.status = status;
     }
 
-    public void setUsuarioId(int usuarioId) {
-        this.usuarioId = usuarioId;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public Programa getPrograma() {
+		return programa;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setPrograma(Programa programa) {
+		this.programa = programa;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getLastname() {
-        return lastname;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getApellido() {
+		return apellido;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
 
-    public String getRol() {
-        return rol;
-    }
+	public String getCorreo() {
+		return correo;
+	}
 
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
 
-    public char getStatus() {
-        return status;
-    }
+	public char getRol() {
+		return rol;
+	}
 
-    public void setStatus(char status) {
-        this.status = status;
-    }
+	public void setRol(char rol) {
+		this.rol = rol;
+	}
+
+	public char getStatus() {
+		return status;
+	}
+
+	public void setStatus(char status) {
+		this.status = status;
+	}
+       
 }

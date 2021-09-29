@@ -5,17 +5,11 @@ import com.dynamite.pensumsystem.service.PensumService;
 import com.dynamite.pensumsystem.service.ProgramaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*", methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE})
 @RequestMapping("/pensum")
 public class PensumController{
 
@@ -24,60 +18,32 @@ public class PensumController{
     @Autowired
     private ProgramaService programaService;
 
-    private static final String baseDir = setDirectorio();
-
-    static String setDirectorio(){
-        String baseDir = "";
-        Path currentRelativePath = Paths.get("");
-        baseDir = currentRelativePath.toAbsolutePath().toString();
-        String so = System.getProperty("os.name").toLowerCase();
-        if(so.contains("win"))
-            return baseDir+"\\src\\main\\resources\\pensum\\";
-        else
-            return baseDir+"/src/main/resources/pensum/";
-    }
-
-    @PostMapping("/add/{codigo}")
-    public String addPensum(@PathVariable String codigo, @RequestBody Pensum pensum/*, @RequestBody MultipartFile archivo*/){
-        pensum.setCodPrograma(programaService.getProgramaByCode(codigo));
-        LocalDate fc = LocalDate.now();
-        pensum.setFecha(fc);
+    @PostMapping("/add/{codigoPrograma}")
+    public String addPensum(@PathVariable String codigoPrograma, @RequestBody Pensum pensum){
+        pensum.setPrograma(programaService.getProgramaByCode(codigoPrograma));
         pensumService.savePensum(pensum);
-
-/*      Guardar archivo en carpeta
-
-        Path path = Paths.get(baseDir + pensum.getPensumId());
-        try {
-            Files.copy(archivo.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-*/
-
+        
         return "Nuevo Pensum agregado satisfactoriamente.";
     }
 
-    @GetMapping("/getAllPensum")
+    @GetMapping("/get")
     public List<Pensum> getAllPensum(){ return pensumService.getAllPensum(); }
 
     @GetMapping("/get/{id}")
     public Pensum getPensumById(@PathVariable int id) {return pensumService.getPensumById(id);}
+    
+    @GetMapping("/get/codigo/{codigo}")
+    public Pensum getPensumByCodigo(@PathVariable String codigo) {return pensumService.getPensumByCodigo(codigo);}
 
-    @PutMapping("/update/{codigo}")
-    public String update(@PathVariable String codigo, @RequestBody Pensum pensum/*, @RequestBody MultipartFile archivo*/) {
+    @GetMapping("/get/programa/{codigoPrograma}")
+    public List<Pensum> getAllPensumByPrograma(@PathVariable String codigoPrograma) {return pensumService.getAllPensumByPrograma(codigoPrograma);}
+    
+    @PutMapping("/update/{codigoPensum}/{codigoPrograma}")
+    public String update(@PathVariable String codigoPensum, @PathVariable String codigoPrograma, @RequestBody Pensum pensum) {
         //Buscamos el ID por medio del codigo
-        pensum.setPensumId(pensumService.getPensumByCodigo(codigo).getPensumId());
-/*
-        if(archivo.isEmpty()) {}
-        else {
-            Path path = Paths.get(baseDir + pensum.getPensumId());
-            try {
-                Files.copy(archivo.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-*/
+        pensum.setId(pensumService.getPensumByCodigo(codigoPensum).getId());
+        pensum.setPrograma(programaService.getProgramaByCode(codigoPrograma));
+        
         //Pasamos el objeto con los nuevos datos
         return pensumService.updatePensum(pensum);
     }
