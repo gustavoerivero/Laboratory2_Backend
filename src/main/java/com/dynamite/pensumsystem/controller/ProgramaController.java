@@ -25,6 +25,11 @@ public class ProgramaController {
     public List<Programa> getAllProgramas(){
         return programaService.getAllProgramas();
     }
+    
+    @GetMapping("/get/codes")
+    public List<String> getAllCodigosProgramas() {
+    	return programaService.getAllCodigosProgramas();
+    }
 
     @GetMapping("/get/{id}")
     public Programa readById(@PathVariable int id) {return programaService.getProgramaById(id);}

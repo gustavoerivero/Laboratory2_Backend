@@ -47,7 +47,17 @@ public class PensumController{
         //Pasamos el objeto con los nuevos datos
         return pensumService.updatePensum(pensum);
     }
-
+    
+    @PutMapping("/update/id/{id}/{codigoPrograma}")
+    public String updateById(@PathVariable int id, @PathVariable String codigoPrograma, @RequestBody Pensum pensum) {
+        //Buscamos el ID por medio del codigo
+        pensum.setId(id);
+        pensum.setPrograma(programaService.getProgramaByCode(codigoPrograma));
+        
+        //Pasamos el objeto con los nuevos datos
+        return pensumService.updatePensum(pensum);
+    }
+    
     @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable int id) {
         return pensumService.deletePensum(id);

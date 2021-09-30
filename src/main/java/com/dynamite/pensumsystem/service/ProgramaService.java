@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ProgramaService {
     public Programa savePrograma(Programa programa);
+    public List<String> getAllCodigosProgramas();
     public List<Programa> getAllProgramas();
     public Programa getProgramaById(int id);
     public Programa getProgramaByCode(String codigo);

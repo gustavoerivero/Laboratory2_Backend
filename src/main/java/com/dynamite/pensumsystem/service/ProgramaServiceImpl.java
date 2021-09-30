@@ -20,6 +20,11 @@ public class ProgramaServiceImpl implements ProgramaService {
             return programaRepository.save(programa);
         return new Programa();
     }
+    
+    @Override
+    public List<String> getAllCodigosProgramas() {
+    	return programaRepository.getCodigoFromPrograma();
+    }
 
     @Override
     public List<Programa> getAllProgramas() {
