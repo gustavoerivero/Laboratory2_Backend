@@ -1,13 +1,11 @@
 package com.dynamite.pensumsystem.service;
 
-
-import org.omg.IOP.ExceptionDetailMessage;
+//import org.omg.IOP.ExceptionDetailMessage;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.stream.Stream;
 
 public interface FileService {

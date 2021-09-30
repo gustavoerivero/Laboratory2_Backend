@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.stream.Stream;
 
 @Service
@@ -26,7 +25,7 @@ public class FileServiceImpl implements FileService {
     public void save(String code, MultipartFile file) throws Exception {
         //Aca podemos colocar/cambiar el nombre que tendra el archivo al ser guardado
         Files.copy(file.getInputStream(), this.rootFolder.resolve(code + ".pdf"));
-        fileRepository.save(new File(code+".pdf", "http://localhost:8080/file/load/"+code+".pdf"));
+        fileRepository.save(new File(code+".pdf", "http://192.168.1.100:8080/file/load/"+code+".pdf"));
     }
 
     @Override
