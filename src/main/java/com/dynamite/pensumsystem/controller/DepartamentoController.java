@@ -25,6 +25,11 @@ public class DepartamentoController {
     public List<Departamento> getAllDepartamentos(){
         return departamentoService.getAllDepartamentos();
     }
+    
+    @GetMapping("/get/codes/names")
+    public List<List<String>> getAllCodigosAndNombres() {
+        return departamentoService.getAllCodigosAndNombres();
+    }
 
     @GetMapping("/get/codes")
     public List<String> getAllCodigosDepartamentos() {

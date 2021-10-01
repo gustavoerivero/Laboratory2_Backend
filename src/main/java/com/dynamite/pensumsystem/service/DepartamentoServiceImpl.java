@@ -25,6 +25,11 @@ public class DepartamentoServiceImpl implements DepartamentoService{
     public List<Departamento> getAllDepartamentos() {
         return departamentoRepository.findAll();
     }
+    
+    @Override
+    public List<List<String>> getAllCodigosAndNombres() {
+    	return departamentoRepository.getCodigoAndNombreFromDepartamento();
+    }
 
     @Override
     public Departamento getDepartamentoById(int id) {

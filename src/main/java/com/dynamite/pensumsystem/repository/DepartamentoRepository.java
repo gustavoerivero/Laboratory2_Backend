@@ -15,6 +15,9 @@ public interface DepartamentoRepository extends JpaRepository<Departamento, Inte
 
     @Query(value = "SELECT nombre FROM departamento", nativeQuery = true)
     public List<String> getNombreFromDepartamento();
+    
+    @Query(value = "SELECT codigo, nombre FROM departamento", nativeQuery = true)
+    public List<List<String>> getCodigoAndNombreFromDepartamento();
 
     public Departamento findDepartamentoByCodigo(String codigo);
 }
