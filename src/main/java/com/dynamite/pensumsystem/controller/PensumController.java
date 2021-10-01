@@ -42,7 +42,7 @@ public class PensumController{
     @GetMapping("/get/programa/{codigoPrograma}")
     public List<Pensum> getAllPensumByPrograma(@PathVariable String codigoPrograma) {return pensumService.getAllPensumByPrograma(codigoPrograma);}
 
-    @GetMapping("/get/programa/departamento/{codigoDepartamento}")
+    @GetMapping("/get/departamento/{codigoDepartamento}")
     public List<Pensum> getAllPensumByDepartamento(@PathVariable String codigoDepartamento) {return pensumService.getAllPensumByDepartamento(codigoDepartamento);}
 
     @PutMapping("/update/{codigoPensum}/{codigoPrograma}/{codigoDepartamento")
