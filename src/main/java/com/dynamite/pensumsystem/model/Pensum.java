@@ -18,6 +18,10 @@ public class Pensum {
     @JoinColumn(name = "cod_programa", nullable = false)
     private Programa programa;
 
+    @ManyToOne
+    @JoinColumn(name = "cod_departamento", nullable = false)
+    private Departamento departamento;
+
     @JsonProperty
     @Column(name = "codigo", unique = true, nullable = false, length = 10)
     private String codigo;
@@ -37,9 +41,10 @@ public class Pensum {
     public Pensum() {
     }
     
-    public Pensum(int id, String codigo, String descripcion, LocalDate fecha, Programa programa, char status) {
+    public Pensum(int id, String codigo, String descripcion, LocalDate fecha, Programa programa, Departamento departamento, char status) {
     	this.id = id;
     	this.programa = programa;
+        this.departamento = departamento;
     	this.codigo = codigo;
     	this.descripcion = descripcion;
     	this.fecha = fecha;
@@ -60,6 +65,14 @@ public class Pensum {
 
     public void setPrograma(Programa programa) {
         this.programa = programa;
+    }
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
     }
 
     public String getCodigo() {

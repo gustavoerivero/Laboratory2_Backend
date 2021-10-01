@@ -9,6 +9,7 @@ public interface PensumService {
     public Pensum getPensumById(int id);
     public Pensum getPensumByCodigo(String codigo);
     public List<Pensum> getAllPensumByPrograma(String codigoPrograma);
+    public List<Pensum> getAllPensumByDepartamento(String codigoDepartamento);
     public String updatePensum(Pensum pensum);
     public String deletePensum(int id);
 }

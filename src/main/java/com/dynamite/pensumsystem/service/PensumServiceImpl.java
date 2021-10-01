@@ -1,6 +1,7 @@
 package com.dynamite.pensumsystem.service;
 
 import com.dynamite.pensumsystem.model.Pensum;
+import com.dynamite.pensumsystem.repository.DepartamentoRepository;
 import com.dynamite.pensumsystem.repository.PensumRepository;
 import com.dynamite.pensumsystem.repository.ProgramaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,10 @@ public class PensumServiceImpl implements PensumService{
     @Autowired
     private ProgramaRepository programaRepository;
 
+    @Autowired
+    private DepartamentoRepository departamentoRepository;
+
+    @Override
     public Pensum savePensum(Pensum pensum) {
         if(pensum != null)
             return pensumRepository.save(pensum);
@@ -46,6 +51,11 @@ public class PensumServiceImpl implements PensumService{
     }
 
     @Override
+    public List<Pensum> getAllPensumByDepartamento(String codigoDepartamento) {
+        return pensumRepository.findPensumByDepartamento(departamentoRepository.findDepartamentoByCodigo(codigoDepartamento));
+    }
+
+    @Override
     public String updatePensum(Pensum pensum) {
 
         Optional<Pensum> pensumEncontrado = pensumRepository.findById(pensum.getId());
@@ -56,6 +66,7 @@ public class PensumServiceImpl implements PensumService{
             pensumActualizado.setDescripcion(pensum.getDescripcion());
             pensumActualizado.setFecha(pensum.getFecha());
             pensumActualizado.setPrograma(pensum.getPrograma());
+            pensumActualizado.setDepartamento(pensum.getDepartamento());
             pensumRepository.save(pensumActualizado);
             return "¡Datos del Pensum actualizados con exito!\n(Codigo del Pensum: " + pensum.getCodigo()+").";
         }
