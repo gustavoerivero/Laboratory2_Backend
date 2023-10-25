@@ -45,7 +45,7 @@ public class PensumController{
     @GetMapping("/get/departamento/{codigoDepartamento}")
     public List<Pensum> getAllPensumByDepartamento(@PathVariable String codigoDepartamento) {return pensumService.getAllPensumByDepartamento(codigoDepartamento);}
 
-    @PutMapping("/update/{codigoPensum}/{codigoPrograma}/{codigoDepartamento")
+    @PutMapping("/update/{codigoPensum}/{codigoPrograma}/{codigoDepartamento}")
     public String update(@PathVariable String codigoPensum, @PathVariable String codigoPrograma, @PathVariable String codigoDepartamento, @RequestBody Pensum pensum) {
         //Buscamos el ID por medio del codigo
         pensum.setId(pensumService.getPensumByCodigo(codigoPensum).getId());

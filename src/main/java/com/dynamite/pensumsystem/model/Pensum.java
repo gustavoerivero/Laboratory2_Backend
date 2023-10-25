@@ -2,7 +2,7 @@ package com.dynamite.pensumsystem.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
